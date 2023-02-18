@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  mysql-server:
+    image: mysql:8
+    restart: always
+    container_name: mysql-server
+    ports:
+      - "3350:3306"
+    environment:
+      - MYSQL_DATABASE=micro-bank-db
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_USER=micro-bank-user
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - mysql-micro-bank-data:/var/lib/mysql
+
+volumes:
+    mysql-micro-bank-data:
