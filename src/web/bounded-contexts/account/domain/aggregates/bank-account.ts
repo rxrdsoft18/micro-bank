@@ -14,6 +14,7 @@ export type BankAccountOptionalProperties = Readonly<
   Partial<{
     password: string;
     balance: number;
+    currency: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date | null;
@@ -28,6 +29,8 @@ export class BankAccount extends AggregateRoot {
   private readonly email: string;
   private password: string;
   private balance: number;
+
+  private currency: string;
   private readonly createdAt: Date;
   private updatedAt: Date;
   private deletedAt: Date | null;
@@ -54,6 +57,7 @@ export class BankAccount extends AggregateRoot {
       email: this.email,
       password: this.password,
       balance: this.balance,
+      currency: this.currency,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       deletedAt: this.deletedAt,

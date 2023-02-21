@@ -4,6 +4,7 @@ import { BankAccountController } from './interfaces/http/bank-account.controller
 import { CqrsModule } from '@nestjs/cqrs';
 import { BankAccountFactory } from './domain/aggregates/bank-account.factory';
 import { BankAccountCreatedHandler } from './application/events/bank-account-created';
+import { BankAccountInfrastructure } from './infrastructure/bank-account.infrastructure';
 
 const controllers = [BankAccountController];
 
@@ -12,7 +13,7 @@ const application = [
   CreateBankAccountCommandHandler,
   BankAccountCreatedHandler,
 ];
-const infrastructure = [];
+const infrastructure = [BankAccountInfrastructure];
 
 @Module({
   imports: [CqrsModule],

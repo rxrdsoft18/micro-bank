@@ -19,6 +19,7 @@ export class BankAccountFactory {
       new BankAccount({
         ...options,
         balance: 0,
+        currency: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,

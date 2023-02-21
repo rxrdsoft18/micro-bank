@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { IsInt, IsString, validateSync } from 'class-validator';
+import { IsBoolean, IsInt, IsString, validateSync } from 'class-validator';
 
 class Configuration {
   private readonly logger = new Logger(Configuration.name);
@@ -22,7 +22,14 @@ class Configuration {
   @IsInt()
   readonly PORT = Number(process.env.PORT);
 
+  @IsBoolean()
+  readonly DATABASE_LOGGING = process.env.DATABASE_LOGGING === 'true';
+
+  @IsBoolean()
+  readonly DATABASE_SYNC = process.env.DATABASE_SYNC === 'true';
+
   constructor() {
+    this.logger.log(`Config : ${JSON.stringify(this, null, 2)}`);
     const error = validateSync(this);
     if (!error.length) return;
     this.logger.error(`Config validation errors: ${JSON.stringify(error)}`);
