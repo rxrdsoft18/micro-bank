@@ -9,9 +9,9 @@ import { BankAccountRepository } from '../../domain/repositories/bank-account.re
 import { BankAccountResponseDTO } from '../dtos/bank-account-response.dto';
 export class CreateBankAccountCommand implements ICommand {
   constructor(
-    readonly name: string,
-    readonly email: string,
-    readonly password: string,
+    public readonly name: string,
+    public readonly email: string,
+    public readonly password: string,
   ) {}
 }
 

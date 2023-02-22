@@ -1,6 +1,10 @@
 import { BankAccount } from '../aggregates/bank-account';
-import { BankAccountCreateResult } from '../../infrastructure/bank-account.infrastructure';
+import {
+  BankAccountCreateResult,
+  BankAccountFindByIdResult,
+} from '../../infrastructure/bank-account.infrastructure';
 
 export interface BankAccountRepository {
   save(bankAccount: BankAccount): Promise<BankAccountCreateResult>;
+  findById(bankAccountId: string): Promise<BankAccountFindByIdResult>;
 }

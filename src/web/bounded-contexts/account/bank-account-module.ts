@@ -5,12 +5,16 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { BankAccountFactory } from './domain/aggregates/bank-account.factory';
 import { BankAccountCreatedHandler } from './application/events/bank-account-created';
 import { BankAccountInfrastructure } from './infrastructure/bank-account.infrastructure';
+import { WithdrawCommandHandler } from './application/commands/withdraw.command';
+import { DepositCommandHandler } from "./application/commands/deposit.command";
 
 const controllers = [BankAccountController];
 
 const domain = [BankAccountFactory];
 const application = [
   CreateBankAccountCommandHandler,
+  WithdrawCommandHandler,
+  DepositCommandHandler,
   BankAccountCreatedHandler,
 ];
 const infrastructure = [BankAccountInfrastructure];

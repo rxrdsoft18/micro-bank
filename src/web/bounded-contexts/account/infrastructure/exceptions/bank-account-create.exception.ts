@@ -3,9 +3,9 @@ import {
   InfrastructureExceptionCode,
 } from '../../../../../core/infrastructure/exceptions/infrastructure.exception';
 
-export class BankAccountCreateException extends InfrastructureException {
+export class BankAccountCreateDatabaseException extends InfrastructureException {
   constructor(message: string) {
-    super(BankAccountCreateException.getMessage(message));
+    super(BankAccountCreateDatabaseException.getMessage(message));
     this.name =
       InfrastructureExceptionCode.SAVE_BANK_ACCOUNT_DATABASE_EXCEPTION;
   }

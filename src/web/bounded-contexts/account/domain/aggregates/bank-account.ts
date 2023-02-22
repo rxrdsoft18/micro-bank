@@ -1,6 +1,12 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { BankAccountCreatedEvent } from '../event/bank-account-created';
 import { UuidVo } from '../value-objects/uuid.vo';
+import {
+  WitdrawCanNotOverBalanceException,
+  WithdrawCanNotUderOneException,
+} from '../exceptions/withdraw.exception';
+import { Err, err, ok, Result } from "neverthrow";
+import { DepositCanNotUndeOneException } from '../exceptions/deposit.exception';
 
 export type BankAccountEssentialProperties = Readonly<
   Required<{
@@ -48,6 +54,38 @@ export class BankAccount extends AggregateRoot {
         email: this.email,
       }),
     );
+  }
+
+  withdraw(
+    amount: number,
+  ): Result<
+    any,
+    WitdrawCanNotOverBalanceException | WithdrawCanNotUderOneException
+  > {
+    if (amount < 1) {
+      return err(new WithdrawCanNotUderOneException());
+    }
+
+    if (this.balance < amount) {
+      return err(new WitdrawCanNotOverBalanceException());
+    }
+    this.balance -= amount;
+    this.updatedAt = new Date();
+    return ok(undefined);
+  }
+
+  deposit(
+    amount: number,
+    currency: string,
+  ): Result<any, DepositCanNotUndeOneException> {
+    if (amount < 1) {
+      return err(new DepositCanNotUndeOneException());
+    }
+
+    this.balance += amount;
+    this.currency = currency;
+    this.updatedAt = new Date();
+    return ok(undefined);
   }
 
   properties() {
