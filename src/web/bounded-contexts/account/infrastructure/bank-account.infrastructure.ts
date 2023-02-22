@@ -33,6 +33,24 @@ export class BankAccountInfrastructure implements BankAccountRepository {
     }
   }
 
+  async saveAll(
+    bankAccounts: BankAccount[],
+  ): Promise<BankAccountCreateResult[]> {
+    try {
+      const bankAccountEntities = bankAccounts.map((bankAccount) =>
+        BankAccountDTO.fromDomainToData(bankAccount),
+      );
+      const bankAccountsSaved = await DatabaseService.manager
+        .getRepository(BankAccountEntity)
+        .save(bankAccountEntities);
+      return bankAccountsSaved.map((bankAccountSaved) =>
+        ok(BankAccountDTO.fromDataToDomain(bankAccountSaved)),
+      );
+    } catch (e) {
+      return [err(new BankAccountCreateDatabaseException(e.sqlMessage))];
+    }
+  }
+
   async findById(bankAccountId: string): Promise<BankAccountFindByIdResult> {
     try {
       const bankAccountEntity = await DatabaseService.manager

@@ -6,5 +6,7 @@ import {
 
 export interface BankAccountRepository {
   save(bankAccount: BankAccount): Promise<BankAccountCreateResult>;
+
+  saveAll(bankAccounts: BankAccount[]): Promise<BankAccountCreateResult[]>;
   findById(bankAccountId: string): Promise<BankAccountFindByIdResult>;
 }

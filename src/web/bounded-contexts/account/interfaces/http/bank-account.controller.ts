@@ -8,6 +8,9 @@ import { WithdrawCommand } from '../../application/commands/withdraw.command';
 import { DepositBankAccountParamDTO } from './dtos/deposit-bank-account-param.dto';
 import { DepositBankAccountDTO } from './dtos/deposit-bank-account.dto';
 import { DepositCommand } from '../../application/commands/deposit.command';
+import { RemitBankAccountParamDTO } from './dtos/remit-bank-account-param.dto';
+import { RemitBankAccountDTO } from './dtos/remit-bank-account.dto';
+import { RemitCommand } from '../../application/commands/remit.command';
 
 @Controller()
 export class BankAccountController {
@@ -43,6 +46,23 @@ export class BankAccountController {
     console.log(body, 'body');
     console.log(params, 'params');
     const command = new DepositCommand(params.id, body.amount, body.currency);
+    return await this.commandBus.execute(command);
+  }
+
+  @Post('bank-account/:id/remit')
+  async remit(
+    @Param() params: RemitBankAccountParamDTO,
+    @Body() body: RemitBankAccountDTO,
+  ) {
+    console.log('BankAccountController.remit');
+    console.log(body, 'body');
+    console.log(params, 'params');
+    const command = new RemitCommand(
+      params.id,
+      body.receiverId,
+      body.amount,
+      body.currency,
+    );
     return await this.commandBus.execute(command);
   }
 }

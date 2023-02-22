@@ -71,7 +71,7 @@ export class BankAccount extends AggregateRoot {
     }
     this.balance -= amount;
     this.updatedAt = new Date();
-    return ok(undefined);
+    return ok(amount);
   }
 
   deposit(
@@ -85,7 +85,7 @@ export class BankAccount extends AggregateRoot {
     this.balance += amount;
     this.currency = currency;
     this.updatedAt = new Date();
-    return ok(undefined);
+    return ok(amount);
   }
 
   properties() {
