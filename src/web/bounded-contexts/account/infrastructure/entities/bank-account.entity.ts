@@ -8,7 +8,7 @@ export class BankAccountEntity {
   @Column({ type: 'varchar', length: 36 })
   name: string;
 
-  @Column({ type: 'varchar', length: 36 })
+  @Column({ type: 'varchar', length: 36, unique: true })
   email: string;
 
   @Column({ type: 'varchar', length: 100 })

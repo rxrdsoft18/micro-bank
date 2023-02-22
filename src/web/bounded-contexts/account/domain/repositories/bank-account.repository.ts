@@ -1,5 +1,6 @@
 import { BankAccount } from '../aggregates/bank-account';
+import { BankAccountCreateResult } from '../../infrastructure/bank-account.infrastructure';
 
-export class BankAccountRepository {
-  save(bankAccount: BankAccount): void {}
+export interface BankAccountRepository {
+  save(bankAccount: BankAccount): Promise<BankAccountCreateResult>;
 }

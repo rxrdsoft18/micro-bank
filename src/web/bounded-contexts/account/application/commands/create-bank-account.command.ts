@@ -4,8 +4,9 @@ import { UuidVo } from '../../domain/value-objects/uuid.vo';
 import { v4 as uuid } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { BankAccountInfrastructure } from '../../infrastructure/bank-account.infrastructure';
-import { Inject } from '@nestjs/common';
+import { Inject, InternalServerErrorException } from '@nestjs/common';
 import { BankAccountRepository } from '../../domain/repositories/bank-account.repository';
+import { BankAccountResponseDTO } from '../dtos/bank-account-response.dto';
 export class CreateBankAccountCommand implements ICommand {
   constructor(
     readonly name: string,
@@ -38,8 +39,18 @@ export class CreateBankAccountCommandHandler
     });
     bankAccount.create();
 
-    this.repository.save(bankAccount);
+    const bankAccountSavedResult = await this.repository.save(bankAccount);
+
+    if (bankAccountSavedResult.isErr()) {
+      throw new InternalServerErrorException(
+        bankAccountSavedResult.error.message,
+        bankAccountSavedResult.error.name,
+      );
+    }
+    const bankAccountSaved = bankAccountSavedResult.value;
 
     bankAccount.commit();
+
+    return BankAccountResponseDTO.fromDomainToResponse(bankAccountSaved);
   }
 }
