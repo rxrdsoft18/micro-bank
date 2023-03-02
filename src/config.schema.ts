@@ -11,4 +11,5 @@ export const configSchema = Joi.object({
   DATABASE_PASSWORD: Joi.string(),
   DATABASE_LOGGING: Joi.boolean(),
   DATABASE_SYNC: Joi.boolean(),
+  AWS_REGION: Joi.string(),
 });

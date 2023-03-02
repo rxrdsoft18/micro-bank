@@ -1,6 +1,6 @@
 import { validate as uuidValidate } from 'uuid';
 import { ValueObject } from './value-object';
-import { UuidIdInvalidException } from "../exceptions/uuid-id.exception";
+import { UuidIdInvalidException } from '../exceptions/uuid-id.exception';
 
 interface UuidProps {
   value: string;

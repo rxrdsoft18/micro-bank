@@ -10,6 +10,7 @@ import { configSchema } from './config.schema';
   imports: [
     ConfigModule.forRoot({
       validationSchema: configSchema,
+      isGlobal: true,
     }),
     BankAccountModule,
   ],

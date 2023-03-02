@@ -1,9 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { BadRequestException, INestApplication, ValidationPipe } from "@nestjs/common";
+import {
+  BadRequestException,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Config } from './config';
-import { ValidationError } from "class-validator";
+import { ValidationError } from 'class-validator';
+import * as process from 'process';
 
 function setupSwagger(app: INestApplication): void {
   const documentBuilder = new DocumentBuilder()
@@ -45,7 +50,11 @@ async function bootstrap() {
   );
 
   setupSwagger(app);
-  console.log('Micro Bank is running on port', Config.PORT, process.env.STAGE);
-  await app.listen(Config.PORT);
+  console.log(
+    'Micro Bank is running on port',
+    process.env.PORT,
+    process.env.STAGE,
+  );
+  await app.listen(process.env.PORT);
 }
 bootstrap();

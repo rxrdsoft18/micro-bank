@@ -9,6 +9,7 @@ import { WithdrawCommandHandler } from './application/commands/withdraw.command'
 import { DepositCommandHandler } from './application/commands/deposit.command';
 import { BankAccountService } from './domain/services/bank-account.service';
 import { RemitCommandHandler } from './application/commands/remit.command';
+import { SNSEventPublisher } from './infrastructure/publisher/sns-event.publisher';
 
 const controllers = [BankAccountController];
 
@@ -20,7 +21,7 @@ const application = [
   RemitCommandHandler,
   BankAccountCreatedHandler,
 ];
-const infrastructure = [BankAccountInfrastructure];
+const infrastructure = [BankAccountInfrastructure, SNSEventPublisher];
 
 @Module({
   imports: [CqrsModule],
