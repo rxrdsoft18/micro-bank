@@ -56,6 +56,8 @@ export class DepositCommandHandler implements ICommandHandler<DepositCommand> {
       );
     }
 
+    bankAccount.commit();
+
     return BankAccountResponseDTO.fromDomainToResponse(saveResult.value);
   }
 }

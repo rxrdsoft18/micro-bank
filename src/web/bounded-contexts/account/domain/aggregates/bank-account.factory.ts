@@ -1,4 +1,4 @@
-import { BankAccount } from './bank-account';
+import { BankAccount, BankAccountProperties } from "./bank-account";
 import { EventPublisher } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { UuidVo } from '../value-objects/uuid.vo';
@@ -25,5 +25,9 @@ export class BankAccountFactory {
         deletedAt: null,
       }),
     );
+  }
+
+  reconstitute(properties: BankAccountProperties): BankAccount {
+    return this.eventPublisher.mergeObjectContext(new BankAccount(properties));
   }
 }

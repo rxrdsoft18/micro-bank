@@ -5,8 +5,9 @@ import {
   WitdrawCanNotOverBalanceException,
   WithdrawCanNotUderOneException,
 } from '../exceptions/withdraw.exception';
-import { Err, err, ok, Result } from "neverthrow";
+import { Err, err, ok, Result } from 'neverthrow';
 import { DepositCanNotUndeOneException } from '../exceptions/deposit.exception';
+import { DepositedEvent } from '../event/deposited';
 
 export type BankAccountEssentialProperties = Readonly<
   Required<{
@@ -85,6 +86,15 @@ export class BankAccount extends AggregateRoot {
     this.balance += amount;
     this.currency = currency;
     this.updatedAt = new Date();
+
+    this.apply(
+      Object.assign(new DepositedEvent(), {
+        id: this.id,
+        amount,
+        currency,
+      }),
+    );
+
     return ok(amount);
   }
 

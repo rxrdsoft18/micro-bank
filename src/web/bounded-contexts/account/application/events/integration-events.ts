@@ -19,3 +19,11 @@ export class BankAccountRegistered {
 export interface IntegrationEventPublisher {
   publish(name: Topic, body: IEvent): Promise<void>;
 }
+
+export type Message = {
+  [key: string]: string;
+};
+
+export interface IntegrationProducerEvent {
+  publish(url: string, message: Message): Promise<void>;
+}
