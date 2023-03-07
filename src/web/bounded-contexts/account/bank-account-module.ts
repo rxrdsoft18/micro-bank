@@ -11,7 +11,8 @@ import { BankAccountService } from './domain/services/bank-account.service';
 import { RemitCommandHandler } from './application/commands/remit.command';
 import { SNSEventPublisher } from './infrastructure/publisher/sns-event.publisher';
 import { SQSEventPublisher } from './infrastructure/publisher/sqs-event.publisher';
-import { DepositedHandler } from "./application/events/deposited";
+import { DepositedHandler } from './application/events/deposited';
+import { SQSEventConsumer } from './infrastructure/publisher/sqs-event.consumer';
 
 const controllers = [BankAccountController];
 
@@ -28,6 +29,7 @@ const infrastructure = [
   BankAccountInfrastructure,
   SNSEventPublisher,
   SQSEventPublisher,
+  SQSEventConsumer,
 ];
 
 @Module({

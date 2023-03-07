@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { BankAccountModule } from './web/bounded-contexts/account/bank-account-module';
 import { DatabaseService } from '../libs/database.service';
 import { configSchema } from './config.schema';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { configSchema } from './config.schema';
       validationSchema: configSchema,
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     BankAccountModule,
   ],
   controllers: [AppController],

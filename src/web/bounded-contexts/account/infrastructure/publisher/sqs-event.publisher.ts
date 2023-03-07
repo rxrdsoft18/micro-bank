@@ -12,7 +12,6 @@ export class SQSEventPublisher implements IntegrationProducerEvent {
 
   private readonly sqsClient = new SQSClient({
     region: this.configService.get('AWS_REGION'),
-    endpoint: this.configService.get('AWS_ENDPOINT'),
   });
 
   constructor(private readonly configService: ConfigService) {}
