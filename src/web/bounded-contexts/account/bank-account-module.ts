@@ -29,7 +29,7 @@ const infrastructure = [
   BankAccountInfrastructure,
   SNSEventPublisher,
   SQSEventPublisher,
-  SQSEventConsumer,
+  // SQSEventConsumer,
 ];
 
 @Module({

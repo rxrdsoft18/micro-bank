@@ -16,7 +16,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ScheduleModule.forRoot(),
     BankAccountModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [AppService, DatabaseService],
 })
 export class AppModule {}
